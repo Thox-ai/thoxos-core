@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough B — First boot and entitlement activation — ThoxOS Open</title>
+<style>
+  body { background:#0B0E0C; color:#E8E8E8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; margin:0; padding:32px 20px 64px; }
+  main { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 6px; }
+  h1 .brand { color:#05A451; }
+  .intro { color:#B9C4BC; line-height:1.55; max-width: 78ch; }
+  figure { margin: 44px 0; }
+  .figwrap { position: relative; border:1px solid #26302A; border-radius: 10px; overflow: hidden; }
+  .figwrap img { display:block; width:100%; height:auto; }
+  .badge { position:absolute; width:32px; height:32px; margin:-16px 0 0 -16px; border-radius:50%;
+           background:#05A451; color:#fff; border:2px solid #fff; font-weight:700; font-size:16px;
+           display:flex; align-items:center; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.55); }
+  .label { position:absolute; top:10px; left:10px; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:700;
+           background:rgba(5,10,8,.88); letter-spacing:.02em; }
+  .label.real { border:1.5px solid #05A451; color:#7BDCA6; }
+  .label.sim  { border:1.5px solid #9AA39C; color:#C9CFC9; }
+  figcaption h3 { font-size: 20px; margin: 16px 0 8px; }
+  ol.legend { margin: 0 0 10px; padding-left: 26px; line-height: 1.55; }
+  ol.legend li::marker { color:#05A451; font-weight:700; }
+  .plain { color:#B9C4BC; line-height:1.55; max-width: 84ch; }
+  .plain b { color:#E8E8E8; }
+  pre { background:#101410; border:1px solid #26302A; border-radius:8px; padding:14px 16px; overflow-x:auto; font-size:13.5px; line-height:1.5; }
+</style>
+</head>
+<body>
+<main>
+<h1><span class="brand">ThoxOS Open</span> — Walkthrough B: First boot and entitlement activation</h1>
+<p class="intro">Part 1 (B-01 to B-04) is the real system booting: the current ThoxOS image
+(1.0.0-rc.1, x86_64) starting in a virtual machine during the validation run of 2026-10-25 —
+genuine screens, labelled for the VM they were captured in. Part 2 (B-05 to B-09) is
+entitlement: ThoxOS is free and needs no account; the optional extras that use THOX's
+computers are covered by a signed pass, and backers receive one as a personal magic link.
+The screens are the interactive demo, which runs the real entitlement rules in a browser;
+their numbers are the published user guide's demo steps 1, 4, 5 and 6.</p>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-01-boot-menu.png" alt="systemd-boot menu with ThoxOS entries">
+    <span class="label real">REAL — boot menu of the release image, VM capture</span>
+    <span class="badge" style="left:37%;top:45.5%">1</span>
+    <span class="badge" style="left:37%;top:48.5%">2</span>
+  </div>
+  <figcaption>
+    <h3>B-01 — The boot menu</h3>
+    <ol class="legend">
+      <li>"ThoxOS" — the normal start. This is the entry a first boot uses.</li>
+      <li>"ThoxOS (safe graphics)" — the fallback if the display misbehaves, plus a VM-test entry and a door back into firmware settings.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> after the firmware menu in Walkthrough A, this is the first ThoxOS screen. Pick the top entry and wait.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-02-boot-log.png" alt="Early boot messages with green OK lines">
+    <span class="label real">REAL — early boot messages, VM capture</span>
+    <span class="badge" style="left:30%;top:3%">1</span>
+    <span class="badge" style="left:2%;top:11%">2</span>
+  </div>
+  <figcaption>
+    <h3>B-02 — The system starting</h3>
+    <ol class="legend">
+      <li>Green OK lines: boot screen, root device and system initialisation all found and started.</li>
+      <li>The one orange line: "No NVIDIA GPU found." Expected inside a virtual machine. On the dual-boot hardware the driver payload is baked into the image.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> a few seconds of plain text while the system wakes up. Green means go; the orange line is the VM talking about itself, not a fault on real hardware.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-03-first-run-setup.png" alt="Accessibility setup dialog over the desktop">
+    <span class="label real">REAL — first-run setup dialog, VM capture</span>
+    <span class="badge" style="left:30%;top:17%">1</span>
+    <span class="badge" style="left:66%;top:25%">2</span>
+    <span class="badge" style="left:67%;top:49%">3</span>
+  </div>
+  <figcaption>
+    <h3>B-03 — First-run setup: accessibility first</h3>
+    <ol class="legend">
+      <li>Before anything else, accessibility: screen reader and magnifier, shortcuts printed next to the switches.</li>
+      <li>The screen reader switch — set it now or later; the shortcuts work either way.</li>
+      <li>Display scaling is on the same screen; then "Next" carries on to the desktop behind the dialog.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> the first thing a brand-new ThoxOS asks about is whether you need the screen read aloud or made bigger. Nothing is sold, tracked, or signed up for on this screen.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-04-shell-home.png" alt="ThoxOS Shell home screen with THOXY card and quick actions">
+    <span class="label real">REAL — Shell home screen, VM capture</span>
+    <span class="badge" style="left:26%;top:40%">1</span>
+    <span class="badge" style="left:78%;top:38%">2</span>
+    <span class="badge" style="left:55%;top:28%">3</span>
+  </div>
+  <figcaption>
+    <h3>B-04 — The desktop, first minutes</h3>
+    <ol class="legend">
+      <li>The local agent card: THOXY, marked LOCAL — answers on this device unless you choose another route.</li>
+      <li>Quick actions: start a chat, open the device page, browse models.</li>
+      <li>The honest status line. This frame was captured while the background service (thoxd) was still starting — about two and a half minutes on this build — and the shell says "not reachable" instead of pretending.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> this is home. The icons down the left (Home, Chat, Agents, Projects, Apps, Devices, Vault) are the whole system; Walkthrough D visits each room.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-05-demo-welcome-annotated.png" alt="Interactive demo step 1, welcome, annotated by the release capture team">
+    <span class="label sim">SIMULATION — interactive demo, guide step 1 (callouts baked into the figure)</span>
+  </div>
+  <figcaption>
+    <h3>B-05 — Demo step 1: the welcome</h3>
+    <p class="plain">The demo opens on the promise the rules have to keep: the device is yours, the free core is free forever, and no account, card, or subscription is asked for. <b>Plain English:</b> this part of the walkthrough runs in a web page, on purpose — you can watch the entitlement rules behave before you ever install anything.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-06-demo-activation-annotated.png" alt="Interactive demo step 4, invitation accepted, annotated by the release capture team">
+    <span class="label sim">SIMULATION — interactive demo, guide step 4 (callouts baked into the figure)</span>
+  </div>
+  <figcaption>
+    <h3>B-06 — Demo step 4: the invitation arrives (activation)</h3>
+    <ol class="legend">
+      <li>Your personal key: the backer magic link, from THOX, to you.</li>
+      <li>The door opens: accepting it creates and verifies a real signed pass on the spot — plan, status and expiry printed on it.</li>
+      <li>You were here from the beginning: the invitation is the backer perk, carried by the pass itself.</li>
+      <li>Switched on by the invitation — no checkout: Remote Access, refused politely in step 3, is now on, with the rule's own reason shown.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> activation is not a licence key typed into a box. A signed pass arrives, the system checks the signature, and the extras it covers turn on — with the workings shown, not hidden.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-07-demo-grace-annotated.png" alt="Interactive demo step 5, grace period, annotated by the release capture team">
+    <span class="label sim">SIMULATION — interactive demo, guide step 5 (callouts baked into the figure)</span>
+  </div>
+  <figcaption>
+    <h3>B-07 — Demo step 5: fifteen days past the end (grace)</h3>
+    <p class="plain">The demo jumps the clock 15 days past the end of the included period. The pass is in its 30-day grace period with 15 days left, and Remote Access is still on. <b>Plain English:</b> if a subscription ever lapses, the extras do not cut out mid-sentence. There is a month of grace, and the screen tells you how much is left.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="b-08-demo-lapse-airplane-annotated.png" alt="Interactive demo step 6, lapsed plus airplane mode, annotated by the release capture team">
+    <span class="label sim">SIMULATION — interactive demo, guide step 6 (callouts baked into the figure)</span>
+  </div>
+  <figcaption>
+    <h3>B-08 — Demo step 6: lapsed, and the aeroplane test</h3>
+    <p class="plain">Past day 30 the extras switch off — politely, as described. Then the demo cuts the network entirely, and the free core carries on: the home mesh still runs and local chat still answers. <b>Plain English:</b> the whole ThoxOS Open bargain in one screen — what you own outright never phones home, never expires, and never needs permission.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <figcaption>
+    <h3>B-09 — The same rules, as program output</h3>
+    <p class="plain"><span class="label real" style="position:static; display:inline-block;">REAL — verbatim output of the entitlement reference implementation</span></p>
+    <p class="plain">Full text: <a href="b-09-entitlement-terminal-output.txt" style="color:#7BDCA6;">b-09-entitlement-terminal-output.txt</a>. The lines that matter:</p>
+    <pre>check meshstack.remote: allowed (feature granted by valid token)
+check core-os: allowed (free Core feature: never gated by entitlement)
+status: grace (grace days remaining: 15)            ← at expiry +15 days
+check meshstack.remote: denied                      ← at expiry +31 days
+check local-ai: allowed (free Core feature: never gated by entitlement)
+check security-updates: allowed (free Core feature: never gated by entitlement)</pre>
+    <p class="plain"><b>Plain English:</b> the rule is mechanical, published, and testable — paid features follow the pass; the free core never does. Anyone can run this file and watch it happen.</p>
+  </figcaption>
+</figure>
+
+</main>
+</body>
+</html>

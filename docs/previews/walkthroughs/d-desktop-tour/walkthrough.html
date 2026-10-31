@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough D — ThoxOS desktop tour — ThoxOS Open</title>
+<style>
+  body { background:#0B0E0C; color:#E8E8E8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; margin:0; padding:32px 20px 64px; }
+  main { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 6px; }
+  h1 .brand { color:#05A451; }
+  .intro { color:#B9C4BC; line-height:1.55; max-width: 78ch; }
+  figure { margin: 44px 0; }
+  .figwrap { position: relative; border:1px solid #26302A; border-radius: 10px; overflow: hidden; }
+  .figwrap img { display:block; width:100%; height:auto; }
+  .badge { position:absolute; width:32px; height:32px; margin:-16px 0 0 -16px; border-radius:50%;
+           background:#05A451; color:#fff; border:2px solid #fff; font-weight:700; font-size:16px;
+           display:flex; align-items:center; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.55); }
+  .label { position:absolute; top:10px; left:10px; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:700;
+           background:rgba(5,10,8,.88); letter-spacing:.02em; }
+  .label.real { border:1.5px solid #05A451; color:#7BDCA6; }
+  .label.sim  { border:1.5px solid #9AA39C; color:#C9CFC9; }
+  figcaption h3 { font-size: 20px; margin: 16px 0 8px; }
+  ol.legend { margin: 0 0 10px; padding-left: 26px; line-height: 1.55; }
+  ol.legend li::marker { color:#05A451; font-weight:700; }
+  .plain { color:#B9C4BC; line-height:1.55; max-width: 84ch; }
+  .plain b { color:#E8E8E8; }
+</style>
+</head>
+<body>
+<main>
+<h1><span class="brand">ThoxOS Open</span> — Walkthrough D: ThoxOS desktop tour</h1>
+<p class="intro">Five stops on the real desktop (D-01 to D-05: the ThoxOS Shell running the
+current image, captured in a virtual machine and as the compiled shell application), then two
+design renders (D-06, D-07) showing where the visual design is heading — labelled as drawings,
+because that is what they are. The desktop is organised as planes — full-screen rooms down the
+left rail: Home, Chat, Agents, Projects, Apps, Devices, Vault — and every room carries the same
+footer: <i>Your AI. Your Data. Your Rules.™</i></p>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-01-home.png" alt="Shell home screen">
+    <span class="label real">REAL — Shell home screen, VM capture</span>
+    <span class="badge" style="left:26%;top:40%">1</span>
+    <span class="badge" style="left:78%;top:38%">2</span>
+    <span class="badge" style="left:19%;top:17%">3</span>
+  </div>
+  <figcaption>
+    <h3>D-01 — Home: your ThoxOS, at a glance</h3>
+    <ol class="legend">
+      <li>The local agent card: THOXY, with its LOCAL chip — the agent that answers on this device.</li>
+      <li>Quick actions: New chat, Open device, Browse models — the three things a first day actually does.</li>
+      <li>The rail: every plane of the system, one tap each. This tour visits them in order.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> home is a dashboard, not a desktop of scattered icons. It answers three questions at a glance: is my agent here, what can I do, and where is everything.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-02-devices.png" alt="Shell Devices screen">
+    <span class="label real">REAL — Shell Devices screen, VM capture</span>
+    <span class="badge" style="left:26%;top:35%">1</span>
+    <span class="badge" style="left:15%;top:48%">2</span>
+    <span class="badge" style="left:45%;top:50%">3</span>
+  </div>
+  <figcaption>
+    <h3>D-02 — Devices: what you own, and who it talks to</h3>
+    <ol class="legend">
+      <li>The plain status card: on this capture the background service had not finished starting, and the page says so — with the exact command and a Retry button, not a spinner.</li>
+      <li>Devices in the rail: this device and the MeshStack peers it has admitted. Nobody joins your mesh uninvited.</li>
+      <li>The Overview section below: storage and volume state for the device, once the service is reporting.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> this room answers "what machines are in my house, and are they mine?" Each admitted device appears here with what it is pooling into the mesh.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-03-apps.png" alt="Shell Apps screen with Models and Setup entries">
+    <span class="label real">REAL — Shell Apps screen, compiled shell capture</span>
+    <span class="badge" style="left:19%;top:19%">1</span>
+    <span class="badge" style="left:50%;top:19%">2</span>
+    <span class="badge" style="left:3%;top:24%">3</span>
+  </div>
+  <figcaption>
+    <h3>D-03 — Apps: where Models and Setup live</h3>
+    <ol class="legend">
+      <li>Models: "3 known · 1 loaded" — the models on this device, managed under Devices. This entry opens that section.</li>
+      <li>Setup: the device's own QuickStart — Find, Secure, Configure, Use — with progress kept and resumable. Nothing is marked done for you.</li>
+      <li>The planes rail, complete: Home, Chat, Agents, Projects, Apps, Devices, Vault.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> Apps is deliberately short. It is a doorway to the two things people come looking for — the models and the setup checklist — not another pile of icons.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-04-vault.png" alt="Shell Vault screen, empty state">
+    <span class="label real">REAL — Shell Vault screen, compiled shell capture</span>
+    <span class="badge" style="left:19%;top:20%">1</span>
+    <span class="badge" style="left:3%;top:30%">2</span>
+  </div>
+  <figcaption>
+    <h3>D-04 — Vault: sealed memory and receipts</h3>
+    <ol class="legend">
+      <li>"Nothing sealed yet" — a fresh device's Vault is honestly empty. Sealed memory tiers and their receipts appear here as the service records them on THOXDATA.</li>
+      <li>Vault in the rail: the room for the device's audit trail and security posture.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> the Vault is where ThoxOS keeps its proofs — what was remembered, what was sealed, what left the device and when. Empty on day one is the correct first picture.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-05-chat.png" alt="Shell Chat screen">
+    <span class="label real">REAL — Shell Chat screen, VM capture (same capture as C-03)</span>
+    <span class="badge" style="left:26%;top:47%">1</span>
+    <span class="badge" style="left:24%;top:40%">2</span>
+    <span class="badge" style="left:70%;top:93%">3</span>
+  </div>
+  <figcaption>
+    <h3>D-05 — Chat: the room you will live in</h3>
+    <ol class="legend">
+      <li>Route chips under the prompt box: Local, Mesh, Hosted — whose computer answers, chosen per conversation.</li>
+      <li>Starter prompts that teach the system: summarise notes, draft a checklist, explain processing locality.</li>
+      <li>The footer that never changes: <i>Your AI. Your Data. Your Rules.™</i></li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> chat is where the models from Walkthrough C become useful. The route chips are the privacy model made visible — you can always see, and always choose, where an answer is computed.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-06-design-boot.png" alt="Design render of a ThoxOS boot screen">
+    <span class="label sim">SIMULATION — drawn design render, not a capture</span>
+    <span class="badge" style="left:56%;top:32%">1</span>
+    <span class="badge" style="left:58%;top:53%">2</span>
+  </div>
+  <figcaption>
+    <h3>D-06 — The design direction: boot</h3>
+    <ol class="legend">
+      <li>The THOX mark, centred, over a quiet field.</li>
+      <li>The tagline and version line the design study proposes.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> a drawing of a calmer boot. The real boot, as it exists today, is Walkthrough B figures B-01 and B-02 — believe those.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="d-07-design-slate-desktop.png" alt="Design render of the Slate desktop variation">
+    <span class="label sim">SIMULATION — drawn design render ("Variation 1 · TXF Slate"), not a capture</span>
+    <span class="badge" style="left:12%;top:15%">1</span>
+    <span class="badge" style="left:60%;top:15%">2</span>
+    <span class="badge" style="left:70%;top:90%">3</span>
+  </div>
+  <figcaption>
+    <h3>D-07 — The design direction: Slate desktop</h3>
+    <ol class="legend">
+      <li>The planes list the running shell already carries as its rail.</li>
+      <li>The local agent's card, marked THOXY · LOCAL — the same card that is real in D-01.</li>
+      <li>A dock the running shell does not have yet. Anything in this drawing that looks like a model answering is part of the drawing.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> the target, pinned next to the reality on purpose. Where they differ, believe the captures.</p>
+  </figcaption>
+</figure>
+
+</main>
+</body>
+</html>

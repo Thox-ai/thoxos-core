@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough C — Run your first model — ThoxOS Open</title>
+<style>
+  body { background:#0B0E0C; color:#E8E8E8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; margin:0; padding:32px 20px 64px; }
+  main { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 6px; }
+  h1 .brand { color:#05A451; }
+  .intro { color:#B9C4BC; line-height:1.55; max-width: 78ch; }
+  figure { margin: 44px 0; }
+  .figwrap { position: relative; border:1px solid #26302A; border-radius: 10px; overflow: hidden; }
+  .figwrap img { display:block; width:100%; height:auto; }
+  .badge { position:absolute; width:32px; height:32px; margin:-16px 0 0 -16px; border-radius:50%;
+           background:#05A451; color:#fff; border:2px solid #fff; font-weight:700; font-size:16px;
+           display:flex; align-items:center; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.55); }
+  .label { position:absolute; top:10px; left:10px; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:700;
+           background:rgba(5,10,8,.88); letter-spacing:.02em; }
+  .label.real { border:1.5px solid #05A451; color:#7BDCA6; }
+  .label.sim  { border:1.5px solid #9AA39C; color:#C9CFC9; }
+  .label.card { border:1.5px solid #9AA39C; color:#C9CFC9; }
+  figcaption h3 { font-size: 20px; margin: 16px 0 8px; }
+  ol.legend { margin: 0 0 10px; padding-left: 26px; line-height: 1.55; }
+  ol.legend li::marker { color:#05A451; font-weight:700; }
+  .plain { color:#B9C4BC; line-height:1.55; max-width: 84ch; }
+  .plain b { color:#E8E8E8; }
+  code { font-family:"JetBrains Mono", monospace; color:#7BDCA6; }
+</style>
+</head>
+<body>
+<main>
+<h1><span class="brand">ThoxOS Open</span> — Walkthrough C: Run your first model</h1>
+<p class="intro">Check the machine, fetch a model with one command, and ask it a question.
+ThoxOS images ship with the engines installed and no model on board by design — models are
+downloads you choose, stored on your THOXDATA volume, and they run entirely on your own
+hardware. The machine tells you exactly that before you start; figure C-01 is it talking.</p>
+
+<figure>
+  <div class="figwrap">
+    <img src="c-01-doctor.png" alt="Terminal showing thox doctor output">
+    <span class="label real">REAL — terminal on the running system, VM capture</span>
+    <span class="badge" style="left:24%;top:22%">1</span>
+    <span class="badge" style="left:24%;top:31%">2</span>
+    <span class="badge" style="left:24%;top:43%">3</span>
+  </div>
+  <figcaption>
+    <h3>C-01 — Check the machine first: <code>thox doctor</code></h3>
+    <ol class="legend">
+      <li>The foundations, all OK: ThoxOS 1.0.0-rc.1 (x86_64), the kernel, THOXDATA mounted with room to spare, and this machine's own identity key.</li>
+      <li>The one failing line, and it is the point of this walkthrough: no model backend is running yet — "0 local models, 0 loaded." A fresh install is supposed to say this.</li>
+      <li>The tools are already here: <code>ollama</code> and <code>llama-server</code> are found. You install nothing to run a model; you only fetch the model itself.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> <code>thox doctor</code> is the pre-flight check. Four green lines say the system is healthy; the red line is a shopping list of one item — a model.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="c-02-first-model-command-card.png" alt="Instruction card with the ollama pull and run commands">
+    <span class="label card">INSTRUCTION CARD — typeset instructions, not a screen capture</span>
+  </div>
+  <figcaption>
+    <h3>C-02 — The one command</h3>
+    <ol class="legend">
+      <li><code>ollama pull thox-ai/thoxair-0.5b</code> downloads ThoxAir-0.5B — the THOX flagship model for the ThoxAir tier (GATE49 47/49, promoted) — onto your THOXDATA volume.</li>
+      <li><code>ollama run thox-ai/thoxair-0.5b</code> starts it. Swap the name for the others: <code>thoxedge-0.8b</code> (46/49, promoted), <code>thoxmini-phi4mini</code> (47/49, documented baseline), <code>thoxclip-qwen3-0.6b</code> (grounding required). The same models are on Hugging Face under Thox-ai.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> two lines in a terminal. The first is a download; the second is a conversation. After the pull, no network is needed. A real capture of this exact session on real hardware is the first item in GAPS.md — this card stands in until then, rather than a staged screenshot.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="c-03-shell-chat.png" alt="ThoxOS Shell Chat screen with route selector">
+    <span class="label real">REAL — Shell Chat screen, VM capture</span>
+    <span class="badge" style="left:26%;top:47%">1</span>
+    <span class="badge" style="left:24%;top:40%">2</span>
+    <span class="badge" style="left:80%;top:50%">3</span>
+  </div>
+  <figcaption>
+    <h3>C-03 — Where the answer appears: Chat</h3>
+    <ol class="legend">
+      <li>The route selector: <b>Local</b>, Mesh, Hosted. Local means this device answers. The choice is yours on every conversation, and Local is the default.</li>
+      <li>The prompt box and the starter questions — including, honestly, "What can this device run locally?"</li>
+      <li>The status line, kept honest: captured in the first minutes after boot, before the background service finished starting, so the screen says the device is unavailable rather than inventing an answer.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> chat is one of the doors on the left rail. What matters is the small word under the box — Local — because it tells you whose computer is doing the thinking. Yours.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="c-04-runtimes-explainer.png" alt="Runtimes explainer page: ThoxFlash and llama.cpp cards">
+    <span class="label sim">SIMULATION — TXF web preview page, an explainer, not the engine</span>
+    <span class="badge" style="left:19%;top:27%">1</span>
+    <span class="badge" style="left:19%;top:45%">2</span>
+    <span class="badge" style="left:60%;top:16%">3</span>
+  </div>
+  <figcaption>
+    <h3>C-04 — Which engine runs it, per machine</h3>
+    <ol class="legend">
+      <li>Apple silicon: ThoxFlash, Metal-based, served on the Mac itself while macOS hosts.</li>
+      <li>A PC with an NVIDIA card: llama.cpp with CUDA, checked against the driver before it starts.</li>
+      <li>The page's own honesty line, at the top: "This page does not load either engine." One API, two engines; the weights stay on the machine that serves them.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> you do not pick an engine. ThoxOS serves the same local API on each kind of machine and uses the engine that fits the hardware.</p>
+  </figcaption>
+</figure>
+
+</main>
+</body>
+</html>

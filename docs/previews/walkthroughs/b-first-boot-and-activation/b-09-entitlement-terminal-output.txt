@@ -1,0 +1,31 @@
+=== THOX entitlement demo (reference implementation, ENT-01) ===
+Demo secret: 'demo-secret-NOT-FOR-PRODUCTION' (demo only, protects nothing)
+
+Stage 1: issue a token (plan=plus, ttl=365 days)
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IlRIT1gtRU5UIn0.eyJleHAiOjE3MzE1MzYwMDAsImZlYXR1cmVzIjpbIm1lc2hzdGFjay5yZW1vdGUiLCJ0aG94cm91dGUuY2xvdWQiXSwiaWF0IjoxNzAwMDAwMDAwLCJwbGFuIjoicGx1cyIsInN1YiI6ImFjY3RfZGVtbyJ9.DlglJJ0NzMpatnXM8EasdYr4fSzBytwehFwiWzElwZg
+  claims: sub=acct_demo plan=plus features=['meshstack.remote', 'thoxroute.cloud'] iat=1700000000 exp=1731536000
+
+Stage 2: verify at issue time and check features
+  status: valid
+  check meshstack.remote: allowed (feature granted by valid token)
+  check core-os: allowed (free Core feature: never gated by entitlement)
+
+Stage 3: simulated grace (now = exp + 15 days)
+  status: grace (grace days remaining: 15)
+  check meshstack.remote: allowed (feature granted by token, in grace period (15 day(s) of grace remaining))
+
+Stage 4: simulated lapse (now = exp + 31 days)
+  status: expired
+  check meshstack.remote: denied (paid feature unavailable: subscription lapsed beyond the grace period)
+  ...and every free Core feature still works (the D4 guarantee):
+  check core-os: allowed (free Core feature: never gated by entitlement)
+  check local-ai: allowed (free Core feature: never gated by entitlement)
+  check meshstack.local: allowed (free Core feature: never gated by entitlement)
+  check security-updates: allowed (free Core feature: never gated by entitlement)
+  check thoxbeam.local: allowed (free Core feature: never gated by entitlement)
+
+Stage 5: no token at all
+  check core-os (no token): allowed (free Core feature: never gated by entitlement)
+  check meshstack.remote (no token): denied (paid feature requires an entitlement token (none presented))
+
+Demo complete: paid features follow the token; free Core never does.

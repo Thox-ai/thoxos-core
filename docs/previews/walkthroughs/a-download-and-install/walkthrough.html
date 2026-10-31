@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough A — Download and install — ThoxOS Open</title>
+<style>
+  body { background:#0B0E0C; color:#E8E8E8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; margin:0; padding:32px 20px 64px; }
+  main { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 6px; }
+  h1 .brand { color:#05A451; }
+  .intro { color:#B9C4BC; line-height:1.55; max-width: 78ch; }
+  figure { margin: 44px 0; }
+  .figwrap { position: relative; border:1px solid #26302A; border-radius: 10px; overflow: hidden; }
+  .figwrap img { display:block; width:100%; height:auto; }
+  .badge { position:absolute; width:32px; height:32px; margin:-16px 0 0 -16px; border-radius:50%;
+           background:#05A451; color:#fff; border:2px solid #fff; font-weight:700; font-size:16px;
+           display:flex; align-items:center; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.55); }
+  .label { position:absolute; top:10px; left:10px; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:700;
+           background:rgba(5,10,8,.88); letter-spacing:.02em; }
+  .label.real { border:1.5px solid #05A451; color:#7BDCA6; }
+  .label.sim  { border:1.5px solid #9AA39C; color:#C9CFC9; }
+  figcaption h3 { font-size: 20px; margin: 16px 0 8px; }
+  ol.legend { margin: 0 0 10px; padding-left: 26px; line-height: 1.55; }
+  ol.legend li::marker { color:#05A451; font-weight:700; }
+  .plain { color:#B9C4BC; line-height:1.55; max-width: 84ch; }
+  .plain b { color:#E8E8E8; }
+</style>
+</head>
+<body>
+<main>
+<h1><span class="brand">ThoxOS Open</span> — Walkthrough A: Download and install</h1>
+<p class="intro">Download the ThoxOS release, check it, and write it to a removable SSD with the
+ThoxOS Provision app. Provision prepares the SSD your machine will boot from; nothing is written
+to any disk until step 5. <b>Bare metal (64-bit x86 PC):</b> boot from the SSD, or follow the
+install guide for a permanent dual-boot that keeps every Windows partition untouched.
+<b>Intel Mac (T2):</b> a dedicated installer target that replaces macOS on the internal SSD —
+the app says so before anything happens. <b>Apple silicon:</b> the M3 line can dual-boot with
+macOS kept; M4/M5 machines run the host edition under macOS today, and the app refuses what it
+cannot boot rather than failing halfway. Every screen except A-07 is a REAL capture of the
+running Provision app; step numbers match the app's own step rail.</p>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-01-target.png" alt="Provision step 1, Target: four machine cards">
+    <span class="label real">REAL — Provision app, step 1 of 6</span>
+    <span class="badge" style="left:26%;top:9%">1</span>
+    <span class="badge" style="left:3%;top:34%">2</span>
+    <span class="badge" style="left:61%;top:47%">3</span>
+  </div>
+  <figcaption>
+    <h3>Step 1 — Pick the machine this SSD is for</h3>
+    <ol class="legend">
+      <li>The step rail. Six steps, in order. Nothing is written in this step.</li>
+      <li>The dual-boot target. ThoxOS boots from the SSD; Windows on the internal drive stays untouched.</li>
+      <li>The honest dead end. This MacBook generation cannot boot the image yet, so the app will not write one for it.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> you are telling the app which computer the SSD is for, because each kind of machine needs its own flavour of the system. If your machine cannot run it, the app stops you now.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-02-image.png" alt="Provision step 2, Image: manifest path and verified image card">
+    <span class="label real">REAL — Provision app, step 2 of 6</span>
+    <span class="badge" style="left:40%;top:27%">1</span>
+    <span class="badge" style="left:88%;top:35%">2</span>
+    <span class="badge" style="left:24%;top:44%">3</span>
+  </div>
+  <figcaption>
+    <h3>Step 2 — Choose the image, and let it check itself</h3>
+    <ol class="legend">
+      <li>Point the app at the release's image file or its manifest — the small text file that travels with every download.</li>
+      <li>The green "Verified" tick. The manifest carries the image's SHA-256 fingerprint; the app checks it while the file streams, and a mismatch refuses the write.</li>
+      <li>What you picked, in plain sight: variant, file name, size, build time. Check the variant matches step 1's target.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> before anything is copied, the app proves the download is complete and untampered-with. Never write an image whose fingerprint does not match.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-03-disk.png" alt="Provision step 3, Disk: refused disks in red, one eligible SSD in green">
+    <span class="label real">REAL — Provision app, step 3 of 6</span>
+    <span class="badge" style="left:86%;top:35%">1</span>
+    <span class="badge" style="left:80%;top:44%">2</span>
+    <span class="badge" style="left:3%;top:58%">3</span>
+    <span class="badge" style="left:4%;top:67%">4</span>
+  </div>
+  <figcaption>
+    <h3>Step 3 — Pick the disk to write</h3>
+    <ol class="legend">
+      <li>Refused, in red: the system disk. The app will not overwrite the system it is running on.</li>
+      <li>Refused, in red: a protected disk. The owner's never-write list is honoured without asking.</li>
+      <li>The one green row: an eligible removable SSD, big enough for the image. The only kind of row you can pick.</li>
+      <li>The warning, before you commit: everything on the chosen disk will be erased. Read the name and size twice.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> the app guards the dangerous choice. Your computer's own drive and any drive marked "never touch" cannot be selected at all.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-04-wifi.png" alt="Provision step 4, Wi-Fi: network and owner fields">
+    <span class="label real">REAL — Provision app, step 4 of 6</span>
+    <span class="badge" style="left:45%;top:32%">1</span>
+    <span class="badge" style="left:45%;top:58%">2</span>
+    <span class="badge" style="left:88%;top:90%">3</span>
+  </div>
+  <figcaption>
+    <h3>Step 4 — Wi-Fi and owner details, written once</h3>
+    <ol class="legend">
+      <li>Your home network name and password. ThoxOS joins this network on first boot.</li>
+      <li>Your name and the machine's hostname, plus an optional SSH key.</li>
+      <li>The button says exactly what happens next: "Write to disk 3" — the disk from step 3.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> these details go into a small provisioning file on the SSD. First boot imports it and deletes it; the Wi-Fi password is stored nowhere else.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-05-write.png" alt="Provision step 5, Write: write complete and verified">
+    <span class="label real">REAL — Provision app, step 5 of 6</span>
+    <span class="badge" style="left:88%;top:37%">1</span>
+    <span class="badge" style="left:45%;top:44%">2</span>
+    <span class="badge" style="left:4%;top:49%">3</span>
+  </div>
+  <figcaption>
+    <h3>Step 5 — The write, verified by reading it back</h3>
+    <ol class="legend">
+      <li>"Verified." The write is not called done until it has been read back and compared.</li>
+      <li>How it was checked: head and tail read back and matched; the stream SHA-256 matches the step 2 manifest.</li>
+      <li>The onboarding files from step 4 were written too, named on screen.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> the app writes the system, then reads the disk back to prove the copy is perfect. Do not unplug the disk during this step.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-06-next-steps.png" alt="Provision step 6, Next steps: boot instructions for the machine">
+    <span class="label real">REAL — Provision app, step 6 of 6</span>
+    <span class="badge" style="left:45%;top:44%">1</span>
+    <span class="badge" style="left:88%;top:23%">2</span>
+    <span class="badge" style="left:45%;top:61%">3</span>
+  </div>
+  <figcaption>
+    <h3>Step 6 — Next steps: booting the machine</h3>
+    <ol class="legend">
+      <li>The boot, in the app's own words: plug in, power on, firmware boot menu (F11 here), pick "UEFI: &lt;your USB disk&gt;".</li>
+      <li>"Windows kept." Remove the SSD and Windows boots exactly as before.</li>
+      <li>First boot joins the step 4 Wi-Fi and deletes the file that carried the password.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> this screen is your checklist at the machine itself. What the boot really looks like is Walkthrough B — the same image, booted and captured.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="figwrap">
+    <img src="a-07-apple-silicon-path.png" alt="Apple silicon host edition preview page">
+    <span class="label sim">SIMULATION — TXF web preview page, not the running system</span>
+    <span class="badge" style="left:16%;top:31%">1</span>
+    <span class="badge" style="left:87%;top:58%">2</span>
+    <span class="badge" style="left:85%;top:28%">3</span>
+  </div>
+  <figcaption>
+    <h3>The Apple silicon path, on one page</h3>
+    <ol class="legend">
+      <li>On Apple silicon the runtime is ThoxFlash, served on the Mac itself while macOS is the host.</li>
+      <li>The provisioner opens from this page; the USB kit does not start the Mac, and the page says why: M4 and M5 cannot boot Linux yet.</li>
+      <li>The offline QuickStart notes travel with the page, so the instructions work with no network.</li>
+    </ol>
+    <p class="plain"><b>Plain English:</b> if your Mac is Apple silicon, start here. The newest machines run ThoxOS as a host edition today; the M3 line can also dual-boot from step 1. The app tells you plainly which case you are in.</p>
+  </figcaption>
+</figure>
+
+</main>
+</body>
+</html>
